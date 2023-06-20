@@ -9,7 +9,7 @@ use App\Models\User;
 class Image extends Model
 {
     use HasFactory;
-    public function user()
+    public function users()
 {
     return $this->belongsTo(User::class);
 }

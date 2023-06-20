@@ -12,7 +12,7 @@ use App\Models\Image;
 class User extends Authenticatable implements JWTSubject
 {
     use HasApiTokens, HasFactory, Notifiable;
-    public function image(){
+    public function images(){
         return $this->hasMany(image::class);
     }
     /**
