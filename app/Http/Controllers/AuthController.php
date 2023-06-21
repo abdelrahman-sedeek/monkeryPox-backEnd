@@ -51,9 +51,14 @@ class AuthController extends Controller
                     $validator->validated(),
                     ['password' => bcrypt($request->password)]
                 ));
+
+        $token = auth()->attempt($validator->validated());
+        $new_token = $this->createNewToken($token);
+        Auth::login($user); // Log in the user
         return response()->json([
             'message' => 'User successfully registered',
-            'user' => $user
+            'user' => $user,
+            'token' => $new_token
         ], 201);
     }
 
