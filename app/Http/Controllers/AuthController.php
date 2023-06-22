@@ -45,23 +45,21 @@ class AuthController extends Controller
             'email' => 'required|string|email|max:100|unique:users',
             'password' => 'required|string|confirmed|min:6',
         ]);
+        $error=$validator->errors()->toJson();
         if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
+            return response()->json(["message"=>$error], 400);
         }
         $user = User::create(array_merge(
                     $validator->validated(),
                     ['password' => bcrypt($request->password)]
                 ));
 
-        // $token = auth()->attempt($validator->validated());
-        // $new_token = $this->createNewToken($token);
-        $token = JWTAuth::fromUser($user);
+        $token = auth()->attempt($validator->validated());
+        $new_token = $this->createNewToken($token);
+        
         Auth::login($user); // Log in the user
-        return response()->json([
-            'message' => 'User registered and logged in successfully',
-            'user' => $user,
-            'token' => $token
-        ], 201);
+        return $this->createNewToken($token);
+        
     }
 
     /**

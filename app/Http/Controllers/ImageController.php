@@ -9,7 +9,7 @@ class ImageController extends Controller
 {
     public function storeImage(Request $request)
     {
-        if (auth::check()) {
+        if (!auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
         $user = Auth::user(); // Assuming you have authentication set up and the authenticated user is creating the image
