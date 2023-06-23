@@ -8,19 +8,11 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-    /**
-     * Create a new AuthController instance.
-     *
-     * @return void
-     */
+
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
-    /**
-     * Get a JWT via given credentials.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+  
     public function login(Request $request){
         $credentials = $request->only('email', 'password');
     	$validator = Validator::make($request->all(), [
@@ -36,16 +28,12 @@ class AuthController extends Controller
         }
         return $this->createNewToken($token);
     }
-    /**
-     * Register a User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function register(Request $request) {
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|confirmed|min:6',
+            'password' => 'required|string|min:6',
         ]);
         $error = $validator->errors()->toJson();
         if($validator->fails()){
@@ -73,29 +61,18 @@ class AuthController extends Controller
         auth()->logout();
         return response()->json(['message' => 'User successfully signed out']);
     }
-    /**
-     * Refresh a token.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+    
     public function refresh() {
         return $this->createNewToken(auth()->refresh());
     }
     /**
-     * Get the authenticated User.
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+     * Get the authenticated User.*/
     public function userProfile() {
         return response()->json(auth()->user());
     }
     /**
-     * Get the token array structure.
-     *
-     * @param  string $token
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+     * Get the token array structure.*/
+   
     protected function createNewToken($token){
         return response()->json([
             'access_token' => $token,
@@ -103,5 +80,25 @@ class AuthController extends Controller
             'expires_in' => auth()->factory()->getTTL() * 60,
             'user' => auth()->user()
         ]);
+    }
+    public function GetUserData($id)
+    {
+        if (!Auth::check()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $user=user::find($id);
+        if (!$user) {
+            return response()->json(['error' => 'User not found'], 404);
+        }
+        if ($user->id !== Auth::id()) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+        $userData = [
+            'id' => $user->id,
+            'name' => $user->name,
+            'email' => $user->email,
+            
+        ];
+        return response()->json($userData);
     }
 }
