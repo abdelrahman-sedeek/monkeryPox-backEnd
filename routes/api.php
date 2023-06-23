@@ -23,6 +23,6 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
     Route::post('/add_image', [ImageController::class, 'storeImage']);
-    Route::get('/GetUserData/{id}', [AuthController::class, 'GetUserData']);    
+    Route::get('/GetUserData', [AuthController::class, 'GetUserData'])->middleware('auth:api');    
 
 });

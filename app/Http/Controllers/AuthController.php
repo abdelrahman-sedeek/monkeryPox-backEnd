@@ -81,24 +81,21 @@ class AuthController extends Controller
             'user' => auth()->user()
         ]);
     }
-    public function GetUserData($id)
+    public function getUserData(Request $request)
     {
-        if (!Auth::check()) {
-            return response()->json(['error' => 'Unauthorized'], 401);
-        }
-        $user=user::find($id);
+        $user = $request->user();
+
         if (!$user) {
-            return response()->json(['error' => 'User not found'], 404);
-        }
-        if ($user->id !== Auth::id()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+
         $userData = [
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            
+            // Add more user data as needed
         ];
+
         return response()->json($userData);
     }
 }
