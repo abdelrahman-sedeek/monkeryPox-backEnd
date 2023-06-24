@@ -26,15 +26,24 @@ class ImageController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
         // Store the image file
-        $imageReq = $request->file('image')->store('images', 'public');
+        // $imageReq = $request->file('image')->store('images', 'public');
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('images'), $imageName);
+
+            $imageModel = new image();
+            $imageModel->user_id = $user->id;
+            $imageModel->image = $imageName;
+            $imageModel->status = $request->status;
+            $imageModel->save();
+            return response()->json(['image_path' => '/images/' . $imageName]);
+        }
+
+        return response()->json(['error' => 'No image file uploaded.'], 400);
         // dd($image);
         // Create the image record in the database
-        $imageModel = new image();
-        $imageModel->user_id = $user->id;
-        $imageModel->image = $imageReq;
-        $imageModel->status = $request->status;
-        $imageModel->save();
+       
 
-        return response()->json(['message' => 'Image saved successfully'], 201);
     }
 }
