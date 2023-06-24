@@ -17,7 +17,7 @@ class ImageController extends Controller
         // Validate the incoming request
         $validator = Validator::make($request->all(), [
             
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
@@ -38,8 +38,7 @@ class ImageController extends Controller
             $imageModel->status = $request->status;
             $imageModel->save();
             return response()->json(['image_path' => '/images/' . $imageName]);
-        }
-
+        } 
         return response()->json(['error' => 'No image file uploaded.'], 400);
         // dd($image);
         // Create the image record in the database
