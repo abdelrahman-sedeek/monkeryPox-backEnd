@@ -107,7 +107,8 @@ class AuthController extends Controller
         }
 
         $user = Auth::user();
-        $images = image::where('user_id', $user->id)->get();
+        $images = image::where('user_id', $user->id)->select('image','status')->get();
+        
 
         return response()->json($images);
     }
