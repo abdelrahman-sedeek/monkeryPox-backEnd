@@ -1,6 +1,7 @@
 <?php
 namespace App\Http\Controllers;
 use App\Models\User;
+use App\Models\Image;
 use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
@@ -98,4 +99,16 @@ class AuthController extends Controller
 
         return response()->json($userData);
     }
-}
+    public function history()
+    {
+         // Ensure user is authenticated before proceeding
+         if (!Auth::check()) {
+            return response('Unauthorized', 401);
+        }
+
+        $user = Auth::user();
+        $images = image::where('user_id', $user->id)->get();
+
+        return response()->json($images);
+    }
+    }

@@ -24,5 +24,6 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
     Route::post('/add_image', [ImageController::class, 'storeImage']);
     Route::get('/GetUserData', [AuthController::class, 'GetUserData'])->middleware('auth:api');    
+    Route::get('/history', [AuthController::class, 'history'])->middleware('auth:api');    
 
 });
