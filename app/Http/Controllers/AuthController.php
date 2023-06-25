@@ -94,22 +94,29 @@ class AuthController extends Controller
             'id' => $user->id,
             'name' => $user->name,
             'email' => $user->email,
-            // Add more user data as needed
+        
         ];
 
         return response()->json($userData);
     }
     public function history()
     {
-         // Ensure user is authenticated before proceeding
+        $ngrok="https://3e97-105-37-106-140.ngrok-free.app/";
+        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
          if (!Auth::check()) {
             return response('Unauthorized', 401);
         }
 
         $user = Auth::user();
-        $images = image::where('user_id', $user->id)->select('image','status')->get();
-        
+        $images = image::where('user_id', $user->id)->get();
+        $imageUrls = $images->map(function ($image) use ($url) {
+            $imageUrl = $url . '/' . $image->image;
+            return [
+                'status' => $image->status,
+                'image' => $imageUrl,
+            ];
+        });
 
-        return response()->json($images);
+        return response()->json($imageUrls);
     }
     }
