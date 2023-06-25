@@ -33,3 +33,23 @@ example
 
 get history 
 https://3d7a-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/history   GET
+ 
+JESON 
+ [
+    {
+        "id": 44,
+        "user_id": 13,
+        "image": "1687702232.jpg",
+        "status": "true",
+        "created_at": "2023-06-25T14:10:32.000000Z",
+        "updated_at": "2023-06-25T14:10:32.000000Z"
+    },
+    {
+        "id": 45,
+        "user_id": 13,
+        "image": "1687703189.jpg",
+        "status": "true",
+        "created_at": "2023-06-25T14:26:29.000000Z",
+        "updated_at": "2023-06-25T14:26:29.000000Z"
+    }
+]
