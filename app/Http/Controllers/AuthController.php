@@ -9,7 +9,6 @@ use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
 {
-
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
@@ -34,7 +33,7 @@ class AuthController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
-            'password' => 'required|string|min:6',
+            'password' => 'required|string|min:8',
         ]);
         $error = $validator->errors()->toJson();
         if($validator->fails()){
@@ -53,11 +52,7 @@ class AuthController extends Controller
         
     }
 
-    /**
-     * Log the user out (Invalidate the token).
-     *
-     * @return \Illuminate\Http\JsonResponse
-     */
+
     public function logout() {
         auth()->logout();
         return response()->json(['message' => 'User successfully signed out']);
@@ -84,6 +79,7 @@ class AuthController extends Controller
     }
     public function getUserData(Request $request)
     {
+      
         $user = $request->user();
 
         if (!$user) {
@@ -116,7 +112,7 @@ class AuthController extends Controller
                 'image' => $imageUrl,
             ];
         });
-
+        header('Access-Control-Allow-Origin: *');
         return response()->json($imageUrls);
     }
     }

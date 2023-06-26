@@ -19,9 +19,7 @@ class ImageController extends Controller
             
             'image' => 'required|image|mimes:jpeg,png,jpg,gif',
         ]);
-        if($validator->fails()){
-            return response()->json($validator->errors()->toJson(), 400);
-        }
+     
         if($validator->fails()){
             return response()->json($validator->errors()->toJson(), 400);
         }
