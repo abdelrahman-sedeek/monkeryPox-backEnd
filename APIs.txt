@@ -56,4 +56,12 @@ JESON
 
 POST    
 https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/contact_us
+TAKE 
+{
+name
+email
+phone
+message
+
+}
 
