@@ -25,5 +25,7 @@ Route::group([
     Route::post('/add_image', [ImageController::class, 'storeImage']);
     Route::get('/GetUserData', [AuthController::class, 'GetUserData'])->middleware('auth:api');    
     Route::get('/history', [AuthController::class, 'history'])->middleware('auth:api');    
-
+    Route::post('/webHistory', [AuthController::class, 'webHistory'])->middleware('auth:api');    
+    Route::post('/contact_us', [AuthController::class, 'contact_us'])->middleware('auth:api');    
+    
 });

@@ -6,14 +6,34 @@ use Illuminate\Http\Request;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
-
+use App\Models\ContactUs;
 class AuthController extends Controller
 {
     public function __construct() {
         $this->middleware('auth:api', ['except' => ['login', 'register']]);
     }
   
+    public function contact_us(Request $request)
+    {
+        // Validate the incoming request data
+        $validatedData = $request->validate([
+            'name' => 'required',
+            'email' => 'required|email',
+            'phone' => 'required',
+            'message' => 'required',
+        ]);
+
+        // Create a new ContactUs record
+        $contactUs = contactUs::create($validatedData);
+
+        // Return a response indicating success
+        return response()->json(['message' => 'ContactUs record created successfully'], 201);
+    }
+
+    
     public function login(Request $request){
+        $ngrok="https://6081-105-41-145-236.ngrok-free.app/";
+        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
         $credentials = $request->only('email', 'password');
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
@@ -26,10 +46,30 @@ class AuthController extends Controller
         if (! $token = auth()->attempt($credentials)) {
             return response()->json(['error' => 'Invalid email or password'], 401);
         }
-        return $this->createNewToken($token);
+        if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $images = Image::where('user_id', $user->id)->get();    
+            }
+            $token = auth()->attempt($validator->validated());
+            $imageUrls = $images->map(function ($image) use ($url) {
+                $imageUrl = $url . '/' . $image->image;
+                return [
+                    'status' => $image->status,
+                    'image' => $imageUrl,
+                ];
+            });
+            return response()->json([
+                'access_token' => $token,
+                'token_type' => 'bearer',
+                'expires_in' => auth()->factory()->getTTL() * 60,
+                'user' => auth()->user(),
+                'images'=>$imageUrls
+            ]);
     }
 
     public function register(Request $request) {
+        $ngrok="https://6081-105-41-145-236.ngrok-free.app/";
+        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|between:2,100',
             'email' => 'required|string|email|max:100|unique:users',
@@ -47,6 +87,17 @@ class AuthController extends Controller
         $token = auth()->attempt($validator->validated());
         $new_token = $this->createNewToken($token);
         
+            $user = Auth::user();
+            $images = Image::where('user_id', $user->id)->get();    
+            
+
+            $imageUrls = $images->map(function ($image) use ($url) {
+                $imageUrl = $url . '/' . $image->image;
+                return [
+                    'status' => $image->status,
+                    'image' => $imageUrl,
+                ];
+            });
         Auth::login($user); // Log in the user
         return $this->createNewToken($token);
         
@@ -70,6 +121,7 @@ class AuthController extends Controller
      * Get the token array structure.*/
    
     protected function createNewToken($token){
+        
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',
@@ -97,8 +149,8 @@ class AuthController extends Controller
     }
     public function history()
     {
-        $ngrok="https://3e97-105-37-106-140.ngrok-free.app/";
-        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
+        $ngrok="https://6081-105-41-145-236.ngrok-free.app";
+        $url="{$ngrok}/monkey%20pox%20detection/backEnd/public/images";
          if (!Auth::check()) {
             return response('Unauthorized', 401);
         }
@@ -112,7 +164,33 @@ class AuthController extends Controller
                 'image' => $imageUrl,
             ];
         });
-        header('Access-Control-Allow-Origin: *');
         return response()->json($imageUrls);
+    }
+    public function webHistory(Request $request){
+        $ngrok="https://6081-105-41-145-236.ngrok-free.app/";
+        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
+        
+    	$validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+            'password' => 'required|string|min:6',
+        ]);
+        
+      
+        
+        
+            $user = Auth::user();
+            $images = Image::where('user_id', $user->id)->get();    
+            $imageUrls = $images->map(function ($image) use ($url) {
+            $imageUrl = $url . '/' . $image->image;
+            return [
+                'status' => $image->status,
+                'image' => $imageUrl,
+            ];
+            });
+        
+        return response()->json([
+            
+            'image' => $imageUrls
+        ]);
     }
     }

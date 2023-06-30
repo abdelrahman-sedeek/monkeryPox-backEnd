@@ -1,25 +1,25 @@
 login  take( email , password) POST 
 
-https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/login
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/login
 
 register take  ( email , password , password_confirmation) POST
 
-https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/register
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/register
 
 
 logout take (token) POST
 
-https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/logout
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/logout
 
 add_image  take (image, String status) POST لازم تعمل لوج ان
 
 
-https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/add_image  
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/add_image  
 
 
 get user data
 
-https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/GetUserData   GET
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/GetUserData   GET
 
 
 take token
@@ -31,7 +31,7 @@ example
     "email": "user@gmail.com"
 }
 
-get https://3e97-105-37-106-140.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/history   GET
+get https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/history   GET
  
 JESON 
  [
@@ -52,3 +52,8 @@ JESON
         "updated_at": "2023-06-25T14:26:29.000000Z"
     }
 ]
+
+
+POST    
+https://6081-105-41-145-236.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/contact_us
+
