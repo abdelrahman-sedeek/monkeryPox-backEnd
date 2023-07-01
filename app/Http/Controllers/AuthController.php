@@ -42,7 +42,7 @@ class AuthController extends Controller
 
     
     public function login(Request $request){
-        $ngrok="https://6081-105-41-145-236.ngrok-free.app/";
+        $ngrok="https://3601-105-32-16-126.ngrok-free.app/";
         $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
         $credentials = $request->only('email', 'password');
     	$validator = Validator::make($request->all(), [
@@ -159,7 +159,7 @@ class AuthController extends Controller
     }
     public function history()
     {
-        $ngrok="https://6081-105-41-145-236.ngrok-free.app";
+        $ngrok="https://1b16-105-32-16-126.ngrok-free.app";
         $url="{$ngrok}/monkey%20pox%20detection/backEnd/public/images";
          if (!Auth::check()) {
             return response('Unauthorized', 401);

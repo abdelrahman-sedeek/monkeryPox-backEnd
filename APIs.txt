@@ -1,25 +1,25 @@
 login  take( email , password) POST 
 
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection`/backEnd/public/api/auth/login
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection`/backEnd/public/api/auth/login
 
 register take  ( email , password , password_confirmation) POST
 
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/register
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/register
 
 
 logout take (token) POST
 
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/logout
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/logout
 
 add_image  take (image, String status) POST لازم تعمل لوج ان
 
 
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/add_image  
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/add_image  
 
 
 get user data
 
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/GetUserData   GET
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/GetUserData   GET
 
 
 take token
@@ -31,7 +31,7 @@ example
     "email": "user@gmail.com"
 }
 
-get https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/history   GET
+get https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/history   GET
  
 JESON 
  [
@@ -55,7 +55,7 @@ JESON
 
 
 POST    
-https://1b16-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/contact_us
+https://3601-105-32-16-126.ngrok-free.app/monkey%20pox%20detection/backEnd/public/api/auth/contact_us
 TAKE 
 {
 name
