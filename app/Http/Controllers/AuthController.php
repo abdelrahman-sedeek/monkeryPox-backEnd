@@ -15,19 +15,29 @@ class AuthController extends Controller
   
     public function contact_us(Request $request)
     {
-        // Validate the incoming request data
-        $validatedData = $request->validate([
+        /// Validate the form data
+        $validator = Validator::make($request->all(), [
             'name' => 'required',
             'email' => 'required|email',
             'phone' => 'required',
             'message' => 'required',
         ]);
 
-        // Create a new ContactUs record
-        $contactUs = contactUs::create($validatedData);
+        if ($validator->fails()) {
+            // Return validation errors
+            return response()->json(['errors' => $validator->errors()], 422);
+        }
 
-        // Return a response indicating success
-        return response()->json(['message' => 'ContactUs record created successfully'], 201);
+        // Create a new ContactUs model instance
+        $contact = new ContactUs;
+        $contact->name = $request->name;
+        $contact->email = $request->email;
+        $contact->phone = $request->phone;
+        $contact->message = $request->message;
+
+        // Save the model instance to the database
+        $contact->save();
+        return response()->json(['message' => 'Form submitted successfully']);
     }
 
     
