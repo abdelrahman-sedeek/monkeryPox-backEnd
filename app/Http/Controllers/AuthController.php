@@ -42,7 +42,7 @@ class AuthController extends Controller
 
     
     public function login(Request $request){
-        $ngrok="https://3601-105-32-16-126.ngrok-free.app/";
+        $ngrok="https://1eae-105-36-51-99.ngrok-free.app/";
         $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
         $credentials = $request->only('email', 'password');
     	$validator = Validator::make($request->all(), [
