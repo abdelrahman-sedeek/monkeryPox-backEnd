@@ -177,8 +177,8 @@ class AuthController extends Controller
         return response()->json($imageUrls);
     }
     public function webHistory(Request $request){
-        $ngrok="https://6081-105-41-145-236.ngrok-free.app/";
-        $url="{$ngrok}monkey%20pox%20detection/backEnd/public/images";
+        $ngrok="https://1b16-105-32-16-126.ngrok-free.app";
+        $url="{$ngrok}/monkey%20pox%20detection/backEnd/public/images";
         
     	$validator = Validator::make($request->all(), [
             'email' => 'required|email',
