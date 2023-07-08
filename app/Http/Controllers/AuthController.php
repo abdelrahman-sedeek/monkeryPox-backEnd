@@ -159,7 +159,7 @@ class AuthController extends Controller
     }
     public function history()
     {
-        $ngrok="https://1b16-105-32-16-126.ngrok-free.app";
+        $ngrok="https://1eae-105-36-51-99.ngrok-free.app";
         $url="{$ngrok}/monkey%20pox%20detection/backEnd/public/images";
          if (!Auth::check()) {
             return response('Unauthorized', 401);
